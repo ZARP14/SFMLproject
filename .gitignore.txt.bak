@@ -1,0 +1,5 @@
+/Debug/*.pdb
+/Release/*.pdb
+/SFMLProject/Debug
+/SFMLProject/Release
+/.vs
