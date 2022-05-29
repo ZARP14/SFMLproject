@@ -1,0 +1,24 @@
+//#ifndef OBJECTS_HPP
+//#define OBJECTS_HPP
+//
+//#include <map>
+//#include <SFML/Graphics.hpp>
+//#include <vector>
+//
+//#include "platform.hpp"
+//
+//class Objects
+//{
+//public:
+//    /////////////////////map для функции intersection/////////////////////
+//    /*std::map<int, sf::Sprite&> List_Of_Subjects;*/
+//    /////////////////////map для функции intersection/////////////////////
+//
+//    Objects();
+//  
+//    /////////////////////функция для определения пресекается объект с ЛЮБЫМ други или нет/////////////////////
+//    void intersection_function();
+//    /////////////////////функция для определения пресекается объект с ЛЮБЫМ други или нет///////////////////// 
+//};
+//
+//#endif // !OBJECTS_HP
