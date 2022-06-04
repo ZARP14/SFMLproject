@@ -58,7 +58,6 @@ int main()
                 mainPlayer.update(0, 0, mainPlayer.WaitingRectanle);
             }
             /////////////////////движение/////////////////////
-            std::cout << mainPlayer.Sprite.getPosition().x << ' ' << mainPlayer.Sprite.getPosition().y << ' ' << mainPlayer.SpriteVx << ' ' << mainPlayer.SpriteVy << '\n';
             time1 = 0;
         }
         

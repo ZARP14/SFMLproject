@@ -46,6 +46,13 @@ Player::update(int vx, int vy, sf::IntRect& a)//через это мы должны сделать движ
     ColLine_Top.width -= 10;
     /////////////////////всЄ дл€ верхней и нижней части хитбокса/////////////////////
 
+    /////////////////////всЄ дл€ верхней и нижней части хитбокса/////////////////////
+ /*   ColLine_Down
+    ColLine_Top
+    ColLine_Right
+    ColLine_Left*/
+    /////////////////////всЄ дл€ верхней и нижней части хитбокса/////////////////////
+
     /////////////////////анимаци€/////////////////////
     Sprite.setTextureRect(a);
     if (a.top != 0)
@@ -64,14 +71,17 @@ Player::update(int vx, int vy, sf::IntRect& a)//через это мы должны сделать движ
     /////////////////////анимаци€/////////////////////
 
     /////////////////////движение/////////////////////
-    Sprite.move(SpriteVx + vx, SpriteVy += vy); //двигаем на скорость по ’ и ”
-    if (Sprite.getPosition().y < 245.0) SpriteVy += 5; //если не на земле тогда должны всегда падать вниз
-    else if (Sprite.getPosition().y > 255.0) Sprite.setPosition(hub, 250);
+    SpriteVy == 0 ? SpriteVy += vy : SpriteVy += 0;
+    if (Sprite.getPosition().y + SpriteVy + 5 < 245.0 || SpriteVy < 0) SpriteVy += 5; //если не на земле тогда должны всегда падать вниз
     else
     {
+        Sprite.setPosition(hub, 250);
         SpriteVy = 0; //если на земле то не падаем
-        std::cout << "it is great" << ' ';
     }
+    Sprite.move(vx, SpriteVy); //двигаем на скорость по ’ и ”
+
+    std::cout << Sprite.getPosition().x << ' ' << Sprite.getPosition().y << ' ' << 
+        vx << ' ' << SpriteVy << '\n';
     /////////////////////движение/////////////////////
 }
 
