@@ -9,6 +9,7 @@ Player::Player() :
     std::ifstream config_file(CONFIG_PATH + "config.cfg");
     CFG_JumpStrength = Mconfig.getConfigFunction(config_file);
     CFG_WalkingSpeed = Mconfig.getConfigFunction(config_file);
+    CFG_Forse_Of_Gravity = Mconfig.getConfigFunction(config_file);
     /////////////////////загружаем переменные скорости из файла/////////////////////
 
     /////////////////////задаЄм текстуру дл€ персонажа/////////////////////
@@ -20,7 +21,7 @@ Player::Player() :
 }
 
 void
-Player::update(int vx, int vy, sf::IntRect& a)//через это мы должны сделать движение
+Player::update(int vx, int vy, sf::IntRect& a, float time)//через это мы должны сделать движение
 {
     hub = Sprite.getPosition().x;
     /////////////////////передаЄм нашим коллизионным лини€м (крайним лини€м хитбокса) всЄ что нужно/////////////////////
@@ -46,13 +47,6 @@ Player::update(int vx, int vy, sf::IntRect& a)//через это мы должны сделать движ
     ColLine_Top.width -= 10;
     /////////////////////всЄ дл€ верхней и нижней части хитбокса/////////////////////
 
-    /////////////////////всЄ дл€ верхней и нижней части хитбокса/////////////////////
- /*   ColLine_Down
-    ColLine_Top
-    ColLine_Right
-    ColLine_Left*/
-    /////////////////////всЄ дл€ верхней и нижней части хитбокса/////////////////////
-
     /////////////////////анимаци€/////////////////////
     Sprite.setTextureRect(a);
     if (a.top != 0)
@@ -71,14 +65,18 @@ Player::update(int vx, int vy, sf::IntRect& a)//через это мы должны сделать движ
     /////////////////////анимаци€/////////////////////
 
     /////////////////////движение/////////////////////
-    SpriteVy == 0 ? SpriteVy += vy : SpriteVy += 0;
-    if (Sprite.getPosition().y + SpriteVy + 5 < 245.0 || SpriteVy < 0) SpriteVy += 5; //если не на земле тогда должны всегда падать вниз
+    if (Sprite.getPosition().y == 250) SpriteVy += vy;
+
+    float sX = vx * time;
+    float sY = SpriteVy * time;
+
+    if (Sprite.getPosition().y + (SpriteVy + CFG_Forse_Of_Gravity) * time < 245.0 || SpriteVy < 0) SpriteVy += CFG_Forse_Of_Gravity; //если не на земле тогда должны всегда падать вниз
     else
     {
         Sprite.setPosition(hub, 250);
         SpriteVy = 0; //если на земле то не падаем
     }
-    Sprite.move(vx, SpriteVy); //двигаем на скорость по ’ и ”
+    Sprite.move(vx * time, SpriteVy * time); //двигаем на скорость по ’ и ”
 
     std::cout << Sprite.getPosition().x << ' ' << Sprite.getPosition().y << ' ' << 
         vx << ' ' << SpriteVy << '\n';

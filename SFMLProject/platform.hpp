@@ -4,8 +4,9 @@
 #include <SFML/Graphics.hpp>
 
 #include "program.hpp"
+#include "objects.hpp"
 
-class Platform /*: public Objects*/
+class Platform : public Objects
 {
 public:
     Program Pprogram;

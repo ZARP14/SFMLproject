@@ -1,16 +1,18 @@
 #ifndef PLAYER_HPP
 #define PLAYER_HPP
 
-#include "config.hpp"
-#include "program.hpp"
-
 #include <SFML/Graphics.hpp>
 
-class Player /*: public Objects*/
+#include "config.hpp"
+#include "program.hpp"
+#include "intersectable_objects.hpp"
+
+class Player : public Intersectable_Objects
 {
 public:
     int CFG_JumpStrength; //загружаемые из файла значения для указания силы прыжка
     int CFG_WalkingSpeed; //загружаемые из файла значения для указания скорости ходьбы
+    int CFG_Forse_Of_Gravity; //загружаемые из файла значения для указания силы притяжения
     Config Mconfig;
     Program Mprogram;
     int hub;
@@ -28,19 +30,12 @@ public:
     sf::IntRect WaitingRectanle;
     /////////////////////ректанглы для анимации/////////////////////
 
-    /////////////////////ректанглы для коллизии/////////////////////
-    sf::FloatRect ColLine_Right;
-    sf::FloatRect ColLine_Left;
-    sf::FloatRect ColLine_Top;
-    sf::FloatRect ColLine_Down;
-    /////////////////////ректанглы для коллизии/////////////////////
-
     Player();
 
     float SpriteVx = 0;
     float SpriteVy = 0;
 
-    void update(int vx, int vy, sf::IntRect& a); //через это мы должны сделать движение
+    void update(int vx, int vy, sf::IntRect& a, float time); //через это мы должны сделать движение
     
 };
 

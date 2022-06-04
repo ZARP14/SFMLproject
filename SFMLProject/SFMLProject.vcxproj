@@ -147,7 +147,8 @@
   <ItemGroup>
     <ClCompile Include="backimage.cpp" />
     <ClCompile Include="config.cpp" />
-    <ClCompile Include="objects.txt" />
+    <ClCompile Include="intersectable_objects.cpp" />
+    <ClCompile Include="objects.cpp" />
     <ClCompile Include="platform.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="program.cpp" />
@@ -156,6 +157,8 @@
   <ItemGroup>
     <ClInclude Include="backimage.hpp" />
     <ClInclude Include="config.hpp" />
+    <ClInclude Include="intersectable_objects.hpp" />
+    <ClInclude Include="objects.hpp" />
     <ClInclude Include="objectsHPP.txt" />
     <ClInclude Include="platform.hpp" />
     <ClInclude Include="player.hpp" />
