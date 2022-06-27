@@ -25,7 +25,8 @@ public:
     Player();
 
     bool moving_right = false;
-    bool moving_left = flase;
+    bool moving_left = false;
+    bool jump = false;
     float SpriteVx = 0;
     float SpriteVy = 0;
     float vx = 0;
@@ -34,7 +35,7 @@ public:
     float time = 0;
 
     void animation(float& time, char t);
-    void update(char t, float time); //через это мы должны сделать движение    
+    void update(float time); //через это мы должны сделать движение    
 };
 
 #endif // !PLAYER_HPP

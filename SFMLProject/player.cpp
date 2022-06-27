@@ -60,40 +60,35 @@ Player::animation(float& time, char t)
 }
 
 void
-Player::update(char t, float time)//через это мы должны сделать движение
+Player::update(float time)//через это мы должны сделать движение
 {
     if (Sprite.getPosition().y + (SpriteVy + CFG_Forse_Of_Gravity) < 250.0 + CFG_Forse_Of_Gravity)
     {
         SpriteVy += CFG_Forse_Of_Gravity; //если не на земле тогда должны всегда падать вниз
+        jump = false;
     }
     else
     {
         SpriteVy = 0; //если на земле то не падаем
     }
 
-    switch (t)
+    if (jump == true && Sprite.getPosition().y >= 250)
     {
-        case 'A' :
-            vx = CFG_WalkingSpeed * -1;
-            break;
-        case 'D':
-            vx = CFG_WalkingSpeed;
-            break;
-        case 'W':
-            vy = CFG_JumpStrength;
-            if (Sprite.getPosition().y == 250)
-            {
-                SpriteVy += vy;
-            }
-            break;
-        default:
-            vx = 0;
-            break;
+        SpriteVy += CFG_JumpStrength;
+        jump = false;
     }
 
+    if (moving_right == true && moving_left == false)
+    {
+        vx = CFG_WalkingSpeed;
+    }
+    else if (moving_left == true && moving_right == false)
+    {
+        vx = CFG_WalkingSpeed * -1;
+    }
     /////////////////////движение/////////////////////
-    float sX = vx;
-    float sY = SpriteVy;
+    float sX = vx * time;
+    float sY = SpriteVy * time;
 
     if (Sprite.getPosition().y > 250) Sprite.setPosition(Sprite.getPosition().x, 250);
 
@@ -102,8 +97,8 @@ Player::update(char t, float time)//через это мы должны сделать движение
 
     Sprite.move(sX, sY); //двигаем на скорость по Х и У
 
-   /* std::cout << Sprite.getPosition().x << ' ' << Sprite.getPosition().y << ' ' << 
-        vx << ' ' << SpriteVy << '\n';*/
+    std::cout << Sprite.getPosition().x << ' ' << Sprite.getPosition().y << ' ' << 
+        vx << ' ' << SpriteVy << '\n';
     vx = 0;
     /////////////////////движение/////////////////////
 }

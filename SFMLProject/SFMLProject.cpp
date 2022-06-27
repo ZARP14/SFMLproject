@@ -52,7 +52,7 @@ int main()
     {
         auto time_ = time.restart().asSeconds();
         time1 += time_;
-        mainPlayer.update('C', time1);
+        mainPlayer.update(time1);
         while (window.pollEvent(event))
         {
             switch (event.type) {
@@ -62,6 +62,7 @@ int main()
                 else if (event.key.code == sf::Keyboard::A)
                     mainPlayer.moving_left = true;
                 else if (event.key.code == sf::Keyboard::W)
+                    mainPlayer.jump = true;
 
                 break;
             case sf::Event::KeyReleased:
@@ -78,7 +79,7 @@ int main()
             }
               
         }
-
+        time1 = 0;
         window.clear();
         window.draw(mainBackImage.BackImageSprite);
         window.draw(PlatformVector[0].Sprite);
