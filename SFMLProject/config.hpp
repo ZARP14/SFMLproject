@@ -21,6 +21,11 @@ public:
         {
             return res;
         }
+        
+        operator float()
+        {
+            return std::stof(res);
+        }
     };
 
     result getConfigFunction(std::ifstream& file);

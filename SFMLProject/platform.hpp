@@ -10,9 +10,7 @@ class Platform : public Objects
 {
 public:
     Program Pprogram;
-    sf::Texture PlatformTexture;
     sf::IntRect PlatformRectangle;
-    sf::Sprite PlatformSprite;
     Platform();
 };
 

@@ -17,69 +17,94 @@ Player::Player() :
     /*Sprite.setTextureRect(RightWalkingRectanle);*/
     Sprite.setTexture(SpriteTexture);
     /////////////////////задаём текстуру для персонажа/////////////////////
-    hub = Sprite.getPosition().x;
+    Sprite.setTextureRect(WaitingRectanle);
+    Sprite.setPosition(150, 250);
+}
+
+void 
+Player::animation(float& time, char t)
+{
+    /////////////////////анимация/////////////////////
+    switch (t)
+    {
+    case 'A':
+        a = LeftWalkingRectanle;
+        break;
+    case 'D':
+        a = RightWalkingRectanle;
+        break;
+    default:
+        a = WaitingRectanle;
+    }
+
+    Sprite.setTextureRect(a);
+    if (time >= 0.05)
+    {
+        if (a.top != 0)
+        {
+            a.left += 100.0;
+        }
+        else
+        {
+            a.left = 0;
+        }
+
+        if (a.left > 950)
+        {
+            a.left = 0;
+        }
+        time = 0;
+        Sprite.setTextureRect(a);
+    }
+    /////////////////////анимация/////////////////////
 }
 
 void
-Player::update(int vx, int vy, sf::IntRect& a, float time)//через это мы должны сделать движение
+Player::update(char t, float time)//через это мы должны сделать движение
 {
-    hub = Sprite.getPosition().x;
-    /////////////////////передаём нашим коллизионным линиям (крайним линиям хитбокса) всё что нужно/////////////////////
-    ColLine_Right = Sprite.getGlobalBounds();
-    ColLine_Left = ColLine_Right;
-    ColLine_Top = Sprite.getGlobalBounds();
-    ColLine_Down = ColLine_Top;
-    /////////////////////передаём нашим коллизионным линиям (крайним линиям хитбокса) всё что нужно/////////////////////
-
-    /////////////////////всё для правой и левой части хитбокса/////////////////////
-    ColLine_Right.left += ColLine_Right.width - 1;
-    ColLine_Right.width = 1;
-    ColLine_Left.width = 1;
-    ColLine_Right.height -= 10;
-    ColLine_Left.height -= 10;
-    /////////////////////всё для правой и левой части хитбокса/////////////////////
-
-    /////////////////////всё для верхней и нижней части хитбокса/////////////////////
-    ColLine_Down.top += ColLine_Top.height - 1;
-    ColLine_Down.height = 1;
-    ColLine_Top.height = 1;
-    ColLine_Down.width -= 10;
-    ColLine_Top.width -= 10;
-    /////////////////////всё для верхней и нижней части хитбокса/////////////////////
-
-    /////////////////////анимация/////////////////////
-    Sprite.setTextureRect(a);
-    if (a.top != 0)
+    if (Sprite.getPosition().y + (SpriteVy + CFG_Forse_Of_Gravity) < 250.0 + CFG_Forse_Of_Gravity)
     {
-        a.left += 100.0;
+        SpriteVy += CFG_Forse_Of_Gravity; //если не на земле тогда должны всегда падать вниз
     }
     else
     {
-        a.left = 0;
-    }
-
-    if (a.left > 950)
-    {
-        a.left = 0;
-    }
-    /////////////////////анимация/////////////////////
-
-    /////////////////////движение/////////////////////
-    if (Sprite.getPosition().y == 250) SpriteVy += vy;
-
-    float sX = vx * time;
-    float sY = SpriteVy * time;
-
-    if (Sprite.getPosition().y + (SpriteVy + CFG_Forse_Of_Gravity) * time < 245.0 || SpriteVy < 0) SpriteVy += CFG_Forse_Of_Gravity; //если не на земле тогда должны всегда падать вниз
-    else
-    {
-        Sprite.setPosition(hub, 250);
         SpriteVy = 0; //если на земле то не падаем
     }
-    Sprite.move(vx * time, SpriteVy * time); //двигаем на скорость по Х и У
 
-    std::cout << Sprite.getPosition().x << ' ' << Sprite.getPosition().y << ' ' << 
-        vx << ' ' << SpriteVy << '\n';
+    switch (t)
+    {
+        case 'A' :
+            vx = CFG_WalkingSpeed * -1;
+            break;
+        case 'D':
+            vx = CFG_WalkingSpeed;
+            break;
+        case 'W':
+            vy = CFG_JumpStrength;
+            if (Sprite.getPosition().y == 250)
+            {
+                SpriteVy += vy;
+            }
+            break;
+        default:
+            vx = 0;
+            break;
+    }
+
+    /////////////////////движение/////////////////////
+    float sX = vx;
+    float sY = SpriteVy;
+
+    if (Sprite.getPosition().y > 250) Sprite.setPosition(Sprite.getPosition().x, 250);
+
+    if (Sprite.getPosition().x >= 800)Sprite.setPosition(-80, Sprite.getPosition().y);
+    else if (Sprite.getPosition().x <= -84) Sprite.setPosition(790, Sprite.getPosition().y);
+
+    Sprite.move(sX, sY); //двигаем на скорость по Х и У
+
+   /* std::cout << Sprite.getPosition().x << ' ' << Sprite.getPosition().y << ' ' << 
+        vx << ' ' << SpriteVy << '\n';*/
+    vx = 0;
     /////////////////////движение/////////////////////
 }
 

@@ -10,19 +10,11 @@
 class Player : public Intersectable_Objects
 {
 public:
-    int CFG_JumpStrength; //загружаемые из файла значения для указания силы прыжка
-    int CFG_WalkingSpeed; //загружаемые из файла значения для указания скорости ходьбы
-    int CFG_Forse_Of_Gravity; //загружаемые из файла значения для указания силы притяжения
+    float CFG_JumpStrength; //загружаемые из файла значения для указания силы прыжка
+    float CFG_WalkingSpeed; //загружаемые из файла значения для указания скорости ходьбы
+    float CFG_Forse_Of_Gravity; //загружаемые из файла значения для указания силы притяжения
     Config Mconfig;
     Program Mprogram;
-    int hub;
-    /////////////////////спрайт/////////////////////
-    sf::Sprite Sprite;
-    /////////////////////спрайт/////////////////////
-
-    /////////////////////текстура для спрайта/////////////////////
-    sf::Texture SpriteTexture;
-    /////////////////////текстура для спрайта/////////////////////
 
     /////////////////////ректанглы для анимации/////////////////////
     sf::IntRect RightWalkingRectanle;
@@ -32,11 +24,17 @@ public:
 
     Player();
 
+    bool moving_right = false;
+    bool moving_left = flase;
     float SpriteVx = 0;
     float SpriteVy = 0;
+    float vx = 0;
+    float vy = 0;
+    sf::IntRect a;
+    float time = 0;
 
-    void update(int vx, int vy, sf::IntRect& a, float time); //через это мы должны сделать движение
-    
+    void animation(float& time, char t);
+    void update(char t, float time); //через это мы должны сделать движение    
 };
 
 #endif // !PLAYER_HPP

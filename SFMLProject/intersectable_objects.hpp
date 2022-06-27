@@ -8,6 +8,9 @@
 class Intersectable_Objects : public Objects
 {
 public:
+
+    Intersectable_Objects();
+
     /////////////////////ректанглы для коллизии/////////////////////
     sf::FloatRect ColLine_Right;
     sf::FloatRect ColLine_Left;
